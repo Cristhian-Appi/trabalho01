@@ -1,0 +1,12 @@
+{% extends "seller_data/base.html" %}
+
+{% block content %}
+
+    <p>NUMERO DE VENDEDORES</p>
+    <form action="{% url 'index' %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+        <button name="submit">Adicionar</button>
+    </form>
+
+{% endblock content %}

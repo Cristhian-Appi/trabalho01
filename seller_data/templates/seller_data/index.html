@@ -1,0 +1,31 @@
+{% extends "seller_data/base.html" %}
+
+{% block content %}
+    <p>Informações de vendas.</p>
+
+    <div style="width: 800px;"><canvas id="compradores"></canvas></div>
+    <p><a href="{% url 'new_sell' %}">Adicione uma nova venda:</a></p>
+    <p><a href="{% url 'buyers_number' %}">Adicione numero de vendedores:</a></p>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js" integrity="sha512-ZwR1/gSZM3ai6vCdI+LVF1zSq/5HznD3ZSTk7kajkaj4D292NLuduDCO1c/NT8Id+jE58KYLKT7hXnbtryGmMg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        (async function() {
+            const data = JSON.parse('{{ data|safe }}');
+    
+            new Chart(
+                document.getElementById('compradores'),
+                {
+                    type: 'bar',
+                    data: {
+                        labels: data.map(row => row.fields.buyer_name),
+                        datasets: [
+                            {
+                                label: 'Compradores',
+                                data: data.map(row => row.fields.product_value)
+                            }
+                        ]
+                    }
+                }
+            );
+        })();
+    </script>
+{% endblock content %}
